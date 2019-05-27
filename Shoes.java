@@ -4,6 +4,7 @@ public class Shoes implements Wearable{
     private int defense;
     private String name;
     private int battlesSurvived;
+    private String specials;
 
     @Override
     public void use() {
@@ -57,6 +58,14 @@ public class Shoes implements Wearable{
     @Override
     public int getSlot() {
         return 3;
+    }
+
+    @Override
+    public String getSpecials() {
+        if (this.specials == "") {
+            return ("None");
+        }
+        return specials;
     }
    
     

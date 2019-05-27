@@ -74,6 +74,6 @@ public class Sword implements Weapon{
 
     public String toString() {
         
-        return this.name + "\n" + "ATT: " + this.attack + "\n" + "Specials: " + this.getSpecials() + "\nDurability: " + this.durability +"%\nSlot: "+this.slot;
+        return this.name + "\n" + "ATT: " + this.attack + "\n" + "Specials: " + this.getSpecials() + "\nDurability: " + this.durability +"%\nSlot: "+this.slot + "\n";
     }
 }

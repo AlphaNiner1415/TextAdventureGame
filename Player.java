@@ -46,12 +46,14 @@ public class Player {
             System.out.println(this.name + " attacks, dealing " + AttackPower + " to "+ F2.name+ ".");
             equippedStuff[2].incrementNumberOfUses();
             F2.hp = this.attack - F2.defense;
-            if (equippedStuff[2] != null) {
-                equippedStuff[2].decreaseDurability();
-                if (equippedStuff[2].getDurability() == 0) {
-                    System.out.println("Your " + equippedStuff[2].getName() + " breaks!!!");
+            for(int i = 0; i < equippedStuff.length; i++){
+                if(equippedStuff[i] != null){
+                    equippedStuff[i].incrementNumberOfUses();
+                    equippedStuff[i].decreaseDurability();
+                    if (equippedStuff[i].getDurability() == 0) {
+                    System.out.println("Your " + equippedStuff[i].getName() + " breaks!!!");
                 }
-                
+                }
             }
             
             if (F2.hp ==0){

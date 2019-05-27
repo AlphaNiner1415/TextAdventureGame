@@ -8,7 +8,8 @@ public interface Item{
     public void decreaseDurability();
     public int getDurability();
     //public String getSlot();
-	public void incrementNumberOfUses();
+    public void incrementNumberOfUses();
+    public String getSpecials();
 
     //public void add(Player player);
 }

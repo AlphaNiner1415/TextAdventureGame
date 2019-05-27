@@ -2,22 +2,32 @@ public class Clothes implements Wearable{
     private int durability;
     private int defense;
     private int attack;
-   
+    private String specials;
     private String name;
     private int battlesSurvived;
-    public Clothes(String name, int attack, int defense, int battlesSurvived){
+    private String slot;
+    public Clothes(String name, int attack, int defense, int battlesSurvived,String specials){
         this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.battlesSurvived = battlesSurvived;
         durability = 100;
-
+        slot = "Body";
+        this.specials = specials;
     }
     @Override
     public void use() {
         System.out.println("Can't use a piece of Clothing!!!");
     }
+    
+    public String getSpecials() {
+        if (this.specials == "") {
+            return "None";
+        } else {
+            return specials;
+        }
 
+    }
 
     @Override
     public String getName() {
@@ -61,6 +71,9 @@ public class Clothes implements Wearable{
     }
     public int getSlot(){
         return 1; // 1 for body slot.
+    }
+    public String toString(){
+        return this.name + "\nATT: " +this.attack + "\nSpecials: " + this.getSpecials() + "\nDurability: " + this.durability + "%\nSlot: " + this.slot + "\n";
     }
     
 }
