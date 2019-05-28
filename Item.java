@@ -1,6 +1,6 @@
 public interface Item{
     
-    public void use();
+    public void use(Player player);
     //public void remove(Player player);
     //public String getDescription();
     public String toString();

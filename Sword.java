@@ -19,7 +19,7 @@ public class Sword implements Weapon{
         this.specials = specials;
         this.accuracy = accuracy;
     }
-    public void use(){
+    public void use(Player player){
         System.out.println("You can't use a weapon!!!");
     }
     public String getName(){

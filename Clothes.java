@@ -16,7 +16,7 @@ public class Clothes implements Wearable{
         this.specials = specials;
     }
     @Override
-    public void use() {
+    public void use(Player player) {
         System.out.println("Can't use a piece of Clothing!!!");
     }
     

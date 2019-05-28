@@ -12,6 +12,7 @@ public class Player {
     public ArrayList<Item> inventory;
     public Item[] equippedStuff;
     private double tempAccuracy;
+    public ArrayList<Potion> potionsInEffect;
     int[][] levelRef = {{1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10},{50,100,150,200,250,300,350,400,450,500}};
     
     Random rand = new Random();
@@ -36,6 +37,7 @@ public class Player {
         level = 1;
         inventory = new ArrayList<Item>();
         equippedStuff = new Item[5];
+        potionsInEffect = new ArrayList<Potion>();
   
     }
     public void attack(Player F2){
@@ -65,26 +67,27 @@ public class Player {
         
     }
     public void equip(Item i){
-        if(i instanceof Weapon){
-            Weapon w;
-            w = (Weapon) i;
-            if (w.slot == "primaryHand") {
-                if (this.inventory.contains(w)) {
+        if(inventory.contains(i)){
+            if(i instanceof Weapon){
+                Weapon w;
+                w = (Weapon) i;
+                if (w.slot == "primaryHand") {
+                    
                     this.equippedStuff[2] = w;
                     w.increaseAttack(this);
                     tempAccuracy = this.accuracy;
                     this.accuracy = w.getAccuracy();
                     remove(w);
-                } else {
-                    System.out.println("There's no such thing in your inventory!!!!");
+            
                 }
-        }else if(i instanceof Wearable){
-            Wearable q = (Wearable) i;
-            q.wear(this, q.getSlot());
-        }
-        
+            }else if(i instanceof Wearable){
+                Wearable q = (Wearable) i;
+                q.wear(this, q.getSlot());
+            } else {
+                System.out.println("That item cannot be worn or held. Why don't you try using it instead?");
+            }
         }else{
-            System.out.println("That item cannot be worn or held!!!!");
+            System.out.println("There is no such thing in your inventory!!!!");
         }
     }
     public void unequip(Item i){

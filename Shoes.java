@@ -7,7 +7,7 @@ public class Shoes implements Wearable{
     private String specials;
 
     @Override
-    public void use() {
+    public void use(Player player) {
         System.out.println("You can't use a shoe!!");
     }
 
