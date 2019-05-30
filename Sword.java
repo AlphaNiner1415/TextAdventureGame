@@ -12,8 +12,16 @@ public class Sword implements Weapon{
         durability = 100;
         specials = "null";
     }
-    public Sword(String name, int attack,String specials,double accuracy){
+    public Sword(String name, int attack,String specials,double accuracy,int durability){
         this.name  = name;
+        this.attack = attack;
+        this.durability = durability;
+        this.specials = specials;
+        this.accuracy = accuracy;
+    }
+    
+    public Sword(String name, int attack, String specials, double accuracy) {
+        this.name = name;
         this.attack = attack;
         this.durability = 100;
         this.specials = specials;

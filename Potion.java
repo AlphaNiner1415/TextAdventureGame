@@ -26,7 +26,7 @@ public class Potion implements Item{
                     break;
             
                 default:
-                    System.out.println("The potion gives a refreshing effect, but other than that nothing has happened");
+                    System.out.println("The potion gives a refreshing effect, but other than that nothing has happened.");
                     break;
             }
         }
@@ -60,19 +60,18 @@ public class Potion implements Item{
         return effectsDuration;
     }
     public void decreaseStats(Player player){
-        if(effectsDuration <= 0){
-            switch (category) {
-                case "hitpoints":
+        
+        switch (category) {
+            case "hitpoints":
 
-                    player.hp -= amount;
-                    break;
-                case "accuracy":
+                player.hp -= amount;
+                break;
+            case "accuracy":
 
-                    player.accuracy -= this.amount;
-                    break;
-
-            }
+                player.accuracy -= this.amount;
+                break;
         }
+        
         
     }
     public String toString(){

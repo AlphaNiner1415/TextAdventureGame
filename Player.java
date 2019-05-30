@@ -11,7 +11,7 @@ public class Player {
     public int level;
     public ArrayList<Item> inventory;
     public Item[] equippedStuff;
-    private double tempAccuracy;
+    private double originalAccuracy;
     public ArrayList<Potion> potionsInEffect;
     int[][] levelRef = {{1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10},{50,100,150,200,250,300,350,400,450,500}};
     
@@ -50,15 +50,32 @@ public class Player {
             F2.hp = this.attack - F2.defense;
             for(int i = 0; i < equippedStuff.length; i++){
                 if(equippedStuff[i] != null){
-                    equippedStuff[i].incrementNumberOfUses();
+                    if(equippedStuff[i] instanceof Weapon){
+                        equippedStuff[i].incrementNumberOfUses();
+                    }
+                    
                     equippedStuff[i].decreaseDurability();
                     if (equippedStuff[i].getDurability() == 0) {
-                    System.out.println("Your " + equippedStuff[i].getName() + " breaks!!!");
-                }
+                        System.out.println("Your " + equippedStuff[i].getName() + " breaks!!!");
+                        unequip(equippedStuff[i]);
+                        remove(equippedStuff[i]);
+                    }
                 }
             }
             
             if (F2.hp ==0){
+                for(Potion a : potionsInEffect){
+                    a.incrementNumberOfUses();
+                    if(a.getEffectsDuration() <= 0){
+                        a.decreaseStats(this);
+                    }
+                }
+            for(int i = 0; i < equippedStuff.length; i++){
+                if(i != 2){
+                    equippedStuff[i].incrementNumberOfUses();
+                    equippedStuff[i].decreaseDurability();
+                }
+            }
                 System.out.println(F2.name + " has died.");
             }
         } else{
@@ -75,7 +92,7 @@ public class Player {
                     
                     this.equippedStuff[2] = w;
                     w.increaseAttack(this);
-                    tempAccuracy = this.accuracy;
+                    originalAccuracy = this.accuracy;
                     this.accuracy = w.getAccuracy();
                     remove(w);
             
@@ -95,7 +112,7 @@ public class Player {
             Weapon w = (Weapon) i;
             w.decreaseAttack(this);
             this.equippedStuff[2] = null;
-            this.accuracy = tempAccuracy;
+            this.accuracy = originalAccuracy;
             add(w);
         } else if(i instanceof Wearable){
             Wearable q = (Wearable) i;

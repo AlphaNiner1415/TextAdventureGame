@@ -5,7 +5,15 @@ public class Shoes implements Wearable{
     private String name;
     private int battlesSurvived;
     private String specials;
-
+    
+    public Shoes(String name, int attack, int defense, String specials){
+        this.name = name;
+        this.attack = attack;
+        this.defense = defense;
+        this.specials = specials;
+        this.battlesSurvived = 0;
+        this.durability = 100;
+    }
     @Override
     public void use(Player player) {
         System.out.println("You can't use a shoe!!");
@@ -52,7 +60,8 @@ public class Shoes implements Wearable{
 
     @Override
     public void decreaseStats(Player player) {
-
+        player.attack -= this.attack;
+        player.defense -= this.defense;
     }
 
     @Override
