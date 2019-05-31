@@ -17,7 +17,7 @@ public class Sword implements Weapon{
         this.attack = attack;
         this.durability = durability;
         this.specials = specials;
-        this.accuracy = accuracy;
+        this.accuracy = accuracy/100;
     }
     
     public Sword(String name, int attack, String specials, double accuracy) {
@@ -25,7 +25,7 @@ public class Sword implements Weapon{
         this.attack = attack;
         this.durability = 100;
         this.specials = specials;
-        this.accuracy = accuracy;
+        this.accuracy = accuracy/100.0;
     }
     public void use(Player player){
         System.out.println("You can't use a weapon!!!");
@@ -83,5 +83,10 @@ public class Sword implements Weapon{
     public String toString() {
         
         return this.name + "\n" + "ATT: " + this.attack + "\n" + "Specials: " + this.getSpecials() + "\nDurability: " + this.durability +"%\nSlot: "+this.slot + "\n";
+    }
+
+    @Override
+    public void setNumberOfUses(int i) {
+        attacksMade = i;
     }
 }

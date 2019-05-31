@@ -32,7 +32,7 @@ public class Player {
         this.hp = hp;
         this.attack = attack;
         this.defense = defense;
-        this.accuracy = (double) accuracy;
+        this.accuracy = ((double) accuracy)/100;
         this.xp = 0;
         level = 1;
         inventory = new ArrayList<Item>();
@@ -43,45 +43,37 @@ public class Player {
     public void attack(Player F2){
 
         if (this.accuracy <= rand.nextDouble()){
-           
             String AttackPower = attack-F2.defense + "";
             System.out.println(this.name + " attacks, dealing " + AttackPower + " to "+ F2.name+ ".");
             equippedStuff[2].incrementNumberOfUses();
-            F2.hp = this.attack - F2.defense;
-            for(int i = 0; i < equippedStuff.length; i++){
-                if(equippedStuff[i] != null){
-                    if(equippedStuff[i] instanceof Weapon){
+            Weapon w;
+            w =(Weapon) equippedStuff[2];
+            if(w.getAttacksMade() >= w.getDurability()/5){
+                w.decreaseDurability();
+                w.setNumberOfUses(0);
+                System.out.println("Your "+ w.getName() + " breaks!");
+            }
+
+            if(F2.hp <= 0){
+                System.out.println("Player " + F2.name + " has died.");
+                for(Potion p : potionsInEffect){
+                    p.incrementNumberOfUses();
+                    if(p.getEffectsDuration()<= 0){
+                        p.decreaseStats(this);
+                    }
+                }
+                for(int i = 0; i < equippedStuff.length; i++){
+                    if(i != 2){
                         equippedStuff[i].incrementNumberOfUses();
-                    }
-                    
-                    equippedStuff[i].decreaseDurability();
-                    if (equippedStuff[i].getDurability() == 0) {
-                        System.out.println("Your " + equippedStuff[i].getName() + " breaks!!!");
-                        unequip(equippedStuff[i]);
-                        remove(equippedStuff[i]);
+                        if(checkIfBroken(equippedStuff[i])){
+                            System.out.println("Your " + equippedStuff[i].getName() + "breaks!");
+                        }
                     }
                 }
             }
-            
-            if (F2.hp ==0){
-                for(Potion a : potionsInEffect){
-                    a.incrementNumberOfUses();
-                    if(a.getEffectsDuration() <= 0){
-                        a.decreaseStats(this);
-                    }
-                }
-            for(int i = 0; i < equippedStuff.length; i++){
-                if(i != 2){
-                    equippedStuff[i].incrementNumberOfUses();
-                    equippedStuff[i].decreaseDurability();
-                }
-            }
-                System.out.println(F2.name + " has died.");
-            }
-        } else{
-            System.out.println(this.name + " missed!");
+        } else {
+            System.out.println(this.name + " missed!!");
         }
-        
     }
     public void equip(Item i){
         if(inventory.contains(i)){
@@ -151,6 +143,16 @@ public class Player {
     public void getEquipment(){
         for(int i = 0; i < equippedStuff.length;i++){
             System.out.println(equippedStuff[i]);
+        }
+    }
+    public boolean checkIfBroken(Item i){
+        i.decreaseDurability();
+        i.setNumberOfUses(0);
+        if(i.getDurability() <= 0){
+            return true;
+        }else {
+            
+            return false;
         }
     }
 

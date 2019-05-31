@@ -76,6 +76,11 @@ public class Shoes implements Wearable{
         }
         return specials;
     }
+
+    @Override
+    public void setNumberOfUses(int i) {
+        battlesSurvived = i;
+    }
    
     
 }

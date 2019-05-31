@@ -3,6 +3,7 @@ public class FighterTest{
         Player myPlayer = new Player("Anon", 100, 10, 20, 50);
         Player player2 = new Player("Test",10,10,20,50);
         Sword rapier = new Sword("Rapier",20, "", 60.0,10);
+        System.out.println(rapier.getAccuracy());
         for(int i = 0; i < myPlayer.equippedStuff.length;i++){
             System.out.println(myPlayer.equippedStuff[i]);
         }
@@ -15,6 +16,9 @@ public class FighterTest{
         //System.out.println(rapier);
         myPlayer.add(healthPotion);
         healthPotion.use(myPlayer);
-        //System.out.println(myPlayer);
+        myPlayer.attack(player2);
+        myPlayer.attack(player2);
+        myPlayer.attack(player2);
+        System.out.println(myPlayer);
     }
 }

@@ -77,4 +77,9 @@ public class Potion implements Item{
     public String toString(){
         return this.name + "\nThis potion increases the user's " + this.category + " by " + this.amount +"\n It still has " + effectsDuration +" battles' worth of effect left.";
     }
+
+    @Override
+    public void setNumberOfUses(int i) {
+        effectsDuration = i;
+    }
 }

@@ -75,5 +75,10 @@ public class Clothes implements Wearable{
     public String toString(){
         return this.name + "\nATT: " +this.attack + "\nSpecials: " + this.getSpecials() + "\nDurability: " + this.durability + "%\nSlot: " + this.slot + "\n";
     }
+
+    @Override
+    public void setNumberOfUses(int i) {
+        battlesSurvived = i;
+    }
     
 }
