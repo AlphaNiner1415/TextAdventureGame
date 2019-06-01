@@ -6,26 +6,29 @@ public class Sword implements Weapon{
     private String name;
     private int attacksMade = 0;
     private double accuracy;
+    private int price;
     public Sword(){
         name = "Stupid Sword";
         attack = 10;
         durability = 100;
         specials = "null";
     }
-    public Sword(String name, int attack,String specials,double accuracy,int durability){
+    public Sword(String name, int attack,String specials,double accuracy,int price,int durability){
         this.name  = name;
         this.attack = attack;
         this.durability = durability;
         this.specials = specials;
         this.accuracy = accuracy/100;
+        this.price = price;
     }
     
-    public Sword(String name, int attack, String specials, double accuracy) {
+    public Sword(String name, int attack, String specials, double accuracy,int price) {
         this.name = name;
         this.attack = attack;
         this.durability = 100;
         this.specials = specials;
         this.accuracy = accuracy/100.0;
+        this.price = price;
     }
     public void use(Player player){
         System.out.println("You can't use a weapon!!!");
@@ -88,5 +91,15 @@ public class Sword implements Weapon{
     @Override
     public void setNumberOfUses(int i) {
         attacksMade = i;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(int a) {
+        this.price = a;
     }
 }

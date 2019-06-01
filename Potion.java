@@ -3,6 +3,7 @@ public class Potion implements Item{
     private String category;
     private int amount;
     private int effectsDuration;
+    private int price;
 
     public Potion(String name, String category, int amount, int effectsDuration){
         this.name = name;
@@ -81,5 +82,15 @@ public class Potion implements Item{
     @Override
     public void setNumberOfUses(int i) {
         effectsDuration = i;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(int a) {
+        this.price = a;
     }
 }

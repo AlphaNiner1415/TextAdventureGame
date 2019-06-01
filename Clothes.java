@@ -6,6 +6,7 @@ public class Clothes implements Wearable{
     private String name;
     private int battlesSurvived;
     private String slot;
+    private int price;
     public Clothes(String name, int attack, int defense, int battlesSurvived,String specials){
         this.name = name;
         this.attack = attack;
@@ -79,6 +80,16 @@ public class Clothes implements Wearable{
     @Override
     public void setNumberOfUses(int i) {
         battlesSurvived = i;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public void setPrice(int a) {
+        this.price = a;
     }
     
 }

@@ -10,7 +10,9 @@ public interface Item{
     //public String getSlot();
     public void incrementNumberOfUses();
     public String getSpecials();
-	public void setNumberOfUses(int i);
+    public void setNumberOfUses(int i);
+    public int getPrice();
+    public void setPrice(int a);
     
 
     //public void add(Player player);

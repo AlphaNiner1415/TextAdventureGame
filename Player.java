@@ -13,6 +13,7 @@ public class Player {
     public Item[] equippedStuff;
     private double originalAccuracy;
     public ArrayList<Potion> potionsInEffect;
+    public int money;
     int[][] levelRef = {{1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10},{50,100,150,200,250,300,350,400,450,500}};
     
     Random rand = new Random();
@@ -24,6 +25,7 @@ public class Player {
         accuracy = 0.5;
         xp = 0;
         level = 1;
+        money = 1000;
         inventory = new ArrayList<Item>();
         equippedStuff = new Item[5]; //Head, Body, Hand, Feet, Secondary
     }
@@ -38,6 +40,7 @@ public class Player {
         inventory = new ArrayList<Item>();
         equippedStuff = new Item[5];
         potionsInEffect = new ArrayList<Potion>();
+        money = 1000;
   
     }
     public void attack(Player F2){
