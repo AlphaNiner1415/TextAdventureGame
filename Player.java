@@ -44,10 +44,16 @@ public class Player {
   
     }
     public void attack(Player F2){
+        if(F2.hp <= 0){
+            System.out.println("The player is already dead, why would you beat up a corpse?");
+            return;
+        }
 
         if (this.accuracy <= rand.nextDouble()){
             String AttackPower = attack-F2.defense + "";
-            System.out.println(this.name + " attacks, dealing " + AttackPower + " to "+ F2.name+ ".");
+            System.out.println(this.name + " attacks, dealing " + AttackPower + " damage to "+ F2.name+ ".");
+            F2.hp -= this.attack -F2.defense;
+            System.out.println(F2.name + " now has " + F2.hp + " hitpoints left.");
             equippedStuff[2].incrementNumberOfUses();
             Weapon w;
             w =(Weapon) equippedStuff[2];
@@ -66,7 +72,7 @@ public class Player {
                     }
                 }
                 for(int i = 0; i < equippedStuff.length; i++){
-                    if(i != 2){
+                    if(i != 2 && equippedStuff[i] != null){
                         equippedStuff[i].incrementNumberOfUses();
                         if(checkIfBroken(equippedStuff[i])){
                             System.out.println("Your " + equippedStuff[i].getName() + "breaks!");
@@ -130,7 +136,7 @@ public class Player {
         return xp+"/"+maxXp;
     }
     public String toString(){
-        return this.name + "\n------------\nHP: " + this.hp + "\nATT: " + this.attack +"\nDEF: " +this.defense + "\nAccuracy: " + this.accuracy + "\nLevel: " + level + "\n XP: " + getXP() +"\n"; 
+        return this.name + "\n------------\nHP: " + this.hp + "\nATT: " + this.attack +"\nDEF: " +this.defense + "\nAccuracy: " + this.accuracy + "\nLevel: " + level + "\n XP: " + getXP() +"\nCash: " + this.money + "\n"; 
     }
     public void getInventory(){
         if(inventory.size() == 0){
