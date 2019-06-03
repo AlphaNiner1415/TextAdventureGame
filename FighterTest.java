@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class FighterTest{
     public static void main(String[] args) {
         Player myPlayer = new Player("Anon", 100, 10, 20, 50);
@@ -12,15 +13,22 @@ public class FighterTest{
         Potion healthPotion = new Potion("HP Potion", "hitpoints", 30, 3);
         //System.out.println(myPlayer);
         //System.out.println(comfyClothes);
+
+        Scanner kb = new Scanner(System.in);
+
+        displayer1.setVisible(true);
+        System.out.println("Press enter to continue");
+        kb.nextLine();
         myPlayer.add(rapier);
         myPlayer.equip(rapier);
+        
         //System.out.println(rapier);
         myPlayer.add(healthPotion);
         healthPotion.use(myPlayer);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
-        System.out.println(myPlayer);
+        displayer1.reEvaluateBox(myPlayer);
         System.out.println(player2.hp);
     }
 }
