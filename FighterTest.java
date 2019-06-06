@@ -24,11 +24,14 @@ public class FighterTest{
         
         //System.out.println(rapier);
         myPlayer.add(healthPotion);
+        
         healthPotion.use(myPlayer);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
+        displayer1.showInventory(myPlayer);
         displayer1.reEvaluateBox(myPlayer);
+        
         System.out.println(player2.hp);
     }
 }
