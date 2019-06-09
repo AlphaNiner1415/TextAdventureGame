@@ -10,6 +10,7 @@ public class Player {
     public int maxXp;
     public int level;
     public ArrayList<Item> inventory;
+    public int bagSize;
     public Item[] equippedStuff;
     private double originalAccuracy;
     public ArrayList<Potion> potionsInEffect;
@@ -28,6 +29,7 @@ public class Player {
         money = 1000;
         inventory = new ArrayList<Item>();
         equippedStuff = new Item[5]; //Head, Body, Hand, Feet, Secondary
+        bagSize = 20;
     }
     public Player(String name,int hp, int attack, int defense, int accuracy){
         this.name = name;
@@ -41,6 +43,7 @@ public class Player {
         equippedStuff = new Item[5];
         potionsInEffect = new ArrayList<Potion>();
         money = 1000;
+        bagSize = 20;
   
     }
     public void attack(Player F2){

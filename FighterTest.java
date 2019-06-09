@@ -18,7 +18,7 @@ public class FighterTest{
 
         displayer1.setVisible(true);
         System.out.println("Press enter to continue");
-        kb.nextLine();
+        //kb.nextLine();
         myPlayer.add(rapier);
         myPlayer.equip(rapier);
         
@@ -29,7 +29,7 @@ public class FighterTest{
         myPlayer.attack(player2);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
-        displayer1.showInventory(myPlayer);
+        //displayer1.showInventory(myPlayer);
         displayer1.reEvaluateBox(myPlayer);
         
         System.out.println(player2.hp);

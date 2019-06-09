@@ -2,16 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PlayerDisplayer extends JFrame {
+
+public class PlayerDisplayer extends JFrame implements ActionListener{
     private static final long serialVersionUID = 1L;
     private static JTextArea playerDescription;
+    private static JPanel infoPane;
 
     public PlayerDisplayer(Player player) {
         playerDescription = new JTextArea();
         playerDescription.append(player.toString());
 
         playerDescription.setEditable(false);
-        JPanel infoPane = new JPanel();
+        infoPane = new JPanel();
         infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.PAGE_AXIS));
         infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
@@ -42,31 +44,40 @@ public class PlayerDisplayer extends JFrame {
         
     }
     public void showInventory(Player player){
+        this.remove(infoPane);
+        this.setTitle("Inventory");
         JPanel inventory = new JPanel();
         inventory.setLayout(new BoxLayout(inventory, BoxLayout.PAGE_AXIS));
+        JPanel[] item = new JPanel[player.bagSize];
         for(int i = 0; i < player.inventory.size(); i++){
-            JPanel item = new JPanel();
-            item.setLayout(new BoxLayout(item,BoxLayout.LINE_AXIS));
+            item[i] = new JPanel();
+            item[i].setLayout(new BoxLayout(item[i],BoxLayout.LINE_AXIS));
             JLabel name = new JLabel(player.inventory.get(i).getName());
-            item.add(name);
-            item.add(Box.createHorizontalGlue());
+            item[i].add(name);
+            item[i].add(Box.createHorizontalGlue());
 
             JButton Equip = new JButton("Equip");
-            item.add(Equip);
-            item.add(Box.createRigidArea(new Dimension(2,0)));
+            item[i].add(Equip);
+            item[i].add(Box.createRigidArea(new Dimension(2,0)));
 
             JButton useButton = new JButton("Use");
-            item.add(useButton);
-            item.add(Box.createRigidArea(new Dimension(2, 0)));
+            item[i].add(useButton);
+            item[i].add(Box.createRigidArea(new Dimension(2, 0)));
 
             JButton disposeButton = new JButton("Throw Away");
-            item.add(disposeButton);
-            inventory.add(item);
+            item[i].add(disposeButton);
+            inventory.add(item[i]);
         }
         Container contentPane = getContentPane();
+        
         contentPane.add(inventory,BorderLayout.NORTH);
         revalidate();
         repaint();
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
         
     }
 
