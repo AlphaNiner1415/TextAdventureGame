@@ -11,6 +11,7 @@ public class FighterTest{
         PlayerDisplayer displayer1 = new PlayerDisplayer(myPlayer);
         Clothes comfyClothes = new Clothes("Comfortable Clothes", 0, 0, 0,"");
         Potion healthPotion = new Potion("HP Potion", "hitpoints", 30, 3);
+        myPlayer.add(comfyClothes);
         //System.out.println(myPlayer);
         //System.out.println(comfyClothes);
 
@@ -29,9 +30,9 @@ public class FighterTest{
         myPlayer.attack(player2);
         myPlayer.attack(player2);
         myPlayer.attack(player2);
-        //displayer1.showInventory(myPlayer);
-        displayer1.reEvaluateBox(myPlayer);
         
+        displayer1.reEvaluateBox(myPlayer);
+        displayer1.showInventory(myPlayer);
         System.out.println(player2.hp);
     }
 }

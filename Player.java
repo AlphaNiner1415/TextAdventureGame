@@ -93,17 +93,21 @@ public class Player {
                 Weapon w;
                 w = (Weapon) i;
                 if (w.slot == "primaryHand") {
-                    
+                    Item alreadyEquipped = this.equippedStuff[2];
                     this.equippedStuff[2] = w;
                     w.increaseAttack(this);
                     originalAccuracy = this.accuracy;
                     this.accuracy = w.getAccuracy();
                     remove(w);
-            
+                    add(alreadyEquipped);
+                    System.out.println("Equipping " + w.getName());
                 }
             }else if(i instanceof Wearable){
                 Wearable q = (Wearable) i;
+                Wearable alreadyWorn = (Wearable) this.equippedStuff[q.getSlot()];
+                alreadyWorn.takeOff(this, alreadyWorn.getSlot());
                 q.wear(this, q.getSlot());
+                System.out.println("Equipping " + q.getName());
             } else {
                 System.out.println("That item cannot be worn or held. Why don't you try using it instead?");
             }
@@ -166,6 +170,18 @@ public class Player {
             
             return false;
         }
+    }
+    public void use(Item i){
+        i.use(this);
+    }
+    public int getNonNullInventoryLength(){
+        int count = 0;
+        for(int i = 0; i < this.inventory.size();i++){
+            if(this.inventory.get(i) != null){
+                count++;
+            }
+        }
+        return count;
     }
 
 

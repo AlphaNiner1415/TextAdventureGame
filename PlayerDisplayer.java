@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class PlayerDisplayer extends JFrame implements ActionListener{
+public class PlayerDisplayer extends JFrame {
     private static final long serialVersionUID = 1L;
     private static JTextArea playerDescription;
     private static JPanel infoPane;
@@ -46,39 +46,68 @@ public class PlayerDisplayer extends JFrame implements ActionListener{
     public void showInventory(Player player){
         this.remove(infoPane);
         this.setTitle("Inventory");
-        JPanel inventory = new JPanel();
-        inventory.setLayout(new BoxLayout(inventory, BoxLayout.PAGE_AXIS));
+        JPanel inventoryPane = new JPanel();
+        inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.PAGE_AXIS));
         JPanel[] item = new JPanel[player.bagSize];
-        for(int i = 0; i < player.inventory.size(); i++){
+        for(int i = 0; i < player.getNonNullInventoryLength(); i++){
             item[i] = new JPanel();
             item[i].setLayout(new BoxLayout(item[i],BoxLayout.LINE_AXIS));
+
             JLabel name = new JLabel(player.inventory.get(i).getName());
+            Item thisItem = player.inventory.get(i);
             item[i].add(name);
             item[i].add(Box.createHorizontalGlue());
+            int no = i;
 
-            JButton Equip = new JButton("Equip");
-            item[i].add(Equip);
+            JButton equip = new JButton("Equip");
+            equip.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Execute when button is pressed
+                    player.equip(thisItem);
+                    inventoryPane.remove(item[no]);
+                    revalidate();
+                    repaint();
+                }
+            });
+            item[i].add(equip);
             item[i].add(Box.createRigidArea(new Dimension(2,0)));
 
             JButton useButton = new JButton("Use");
+            useButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Execute when button is pressed
+                    player.use(thisItem);
+                    if(thisItem instanceof Potion){
+                        inventoryPane.remove(item[no]);
+                        revalidate();
+                        repaint();
+                    }
+                }
+            });
             item[i].add(useButton);
             item[i].add(Box.createRigidArea(new Dimension(2, 0)));
 
             JButton disposeButton = new JButton("Throw Away");
+            disposeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Execute when button is pressed
+                    player.remove(thisItem);
+                    inventoryPane.remove(item[no]);
+                    revalidate();
+                    repaint();
+                }
+            });
             item[i].add(disposeButton);
-            inventory.add(item[i]);
+            inventoryPane.add(item[i]);
         }
         Container contentPane = getContentPane();
         
-        contentPane.add(inventory,BorderLayout.NORTH);
+        contentPane.add(inventoryPane,BorderLayout.NORTH);
         revalidate();
         repaint();
         
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
+
 
 }
