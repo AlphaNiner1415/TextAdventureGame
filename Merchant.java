@@ -1,6 +1,6 @@
 import java.util.*;
 public class Merchant{
-    private ArrayList<Item> catalog;
+    protected ArrayList<Item> catalog;
     private String merchantName;
 
     public Merchant(){
@@ -18,9 +18,13 @@ public class Merchant{
         catalog.remove(i);
     }
     public void printCatalog(){
+        System.out.println("The merchant has the following items for sale: ");
         for(int i = 0; i < catalog.size(); i++){
             System.out.println(catalog.get(i));
         }
+    }
+    public ArrayList<Item> getCatalog(){
+        return catalog;
     }
     public void sellsToPlayer(Item i, Player player){
         if(player.money >= i.getPrice()){
