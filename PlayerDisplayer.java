@@ -7,6 +7,7 @@ public class PlayerDisplayer extends JFrame {
     private static JTextArea playerDescription;
     private static JPanel infoPane;
     private static JFrame playerInfoWindow;
+    private static JPanel outputPanel;
 
     public PlayerDisplayer(Player player) {
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
@@ -19,6 +20,12 @@ public class PlayerDisplayer extends JFrame {
         playerInfoWindow = new JFrame("Player Description");
         playerInfoWindow.setSize(350, 300);
         playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        outputPanel = new JPanel();
+        outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
+        Container contentPane = getContentPane();
+        this.pack();
+        contentPane.add(outputPanel, BorderLayout.SOUTH);
+        this.pack();
     }
     public void showPlayerInfo(Player player){
         infoPane = new JPanel();
@@ -35,8 +42,8 @@ public class PlayerDisplayer extends JFrame {
         contentPane.add(infoPane, BorderLayout.NORTH);
         this.pack();
         playerInfoWindow.setVisible(true);
-        revalidate();
-        repaint();
+        playerInfoWindow.revalidate();
+        playerInfoWindow.repaint();
     }
     public void reEvaluateBox(Player player) {
         playerDescription.setText("Display is being updated, \n please wait\n");
@@ -112,17 +119,12 @@ public class PlayerDisplayer extends JFrame {
         
     }
     public void printOut(String prtstr){
-        JPanel outputPanel = new JPanel();
-        outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
+        
         JTextArea gameLog = new JTextArea();
         gameLog.setEditable(false);
         gameLog.setText("\n"+prtstr+"\n");
         outputPanel.add(gameLog);
         System.out.println("Printing to screen");
-        Container contentPane = getContentPane();
-        this.pack();
-        contentPane.add(outputPanel, BorderLayout.SOUTH);
-        this.pack();
         revalidate();
         repaint();
     }

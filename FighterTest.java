@@ -20,10 +20,12 @@ public class FighterTest{
         displayer1.setVisible(true);
         displayer1.showPlayerInfo(myPlayer);
         
-        myPlayer.equip(dagger);
+        String printStr = myPlayer.equip(dagger);
+        displayer1.printOut(printStr);
         myPlayer.getInventory();
         
         displayer1.printOut("Hello There!");
         displayer1.showInventory(myPlayer);
+        displayer1.reEvaluateBox(myPlayer);
     }
 }
