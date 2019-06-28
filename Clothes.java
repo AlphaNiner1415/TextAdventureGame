@@ -7,13 +7,13 @@ public class Clothes implements Wearable{
     private int battlesSurvived;
     private String slot;
     private int price;
-    public Clothes(String name, int attack, int defense, int battlesSurvived,String specials){
+    public Clothes(String name, int attack, int defense, int battlesSurvived,String specials, String slot){
         this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.battlesSurvived = battlesSurvived;
         durability = 100;
-        slot = "Body";
+        this.slot = slot;
         this.specials = specials;
     }
     @Override
@@ -71,7 +71,19 @@ public class Clothes implements Wearable{
         battlesSurvived += 1;
     }
     public int getSlot(){
-        return 1; // 1 for body slot.
+        int returnNum = 0;
+        switch (slot) {
+            case "Body":
+                returnNum = 1;
+                break;
+            case "Feet":
+                returnNum = 3;
+                break;
+            case "Head":
+                returnNum = 0;
+                break;
+        }
+        return returnNum; // 1 for body slot.
     }
     public String toString(){
         return this.name + "\nATT: " +this.attack + "\nSpecials: " + this.getSpecials() + "\nDurability: " + this.durability + "%\nSlot: " + this.slot + "\n";

@@ -2,49 +2,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class PlayerDisplayer extends JFrame {
     private static final long serialVersionUID = 1L;
     private static JTextArea playerDescription;
     private static JPanel infoPane;
+    private static JFrame playerInfoWindow;
 
     public PlayerDisplayer(Player player) {
-        playerDescription = new JTextArea();
-        playerDescription.append(player.toString());
-
-        playerDescription.setEditable(false);
-        infoPane = new JPanel();
-        infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.PAGE_AXIS));
-        infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
-        //infoPane.add(Box.createHorizontalGlue());
-        infoPane.add(playerDescription);
+        //infoPane.add(Box.createHorizontalGlue());  
         setSize(350, 300);
-        Container contentPane = getContentPane();
-        contentPane.add(infoPane, BorderLayout.CENTER);
         //add(infoPane);
         //add(playerDescription);
         setTitle("Player description");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        playerInfoWindow = new JFrame("Player Description");
+        playerInfoWindow.setSize(350, 300);
+        playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    public void showPlayerInfo(Player player){
+        infoPane = new JPanel();
+        infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.PAGE_AXIS));
+        infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    public void reEvaluateBox(Player player) {
-        playerDescription.setText("Display is being updated, \n please wait");
-        try {
-            Thread.sleep(2500);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        playerDescription.setText("");
-        System.out.println("Updating display, please wait.");
+        playerDescription = new JTextArea();
         playerDescription.append(player.toString());
+        playerDescription.setEditable(false);
+        
+        infoPane.add(playerDescription);
+        Container contentPane = playerInfoWindow.getContentPane();
+        this.pack();
+        contentPane.add(infoPane, BorderLayout.NORTH);
+        this.pack();
+        playerInfoWindow.setVisible(true);
+        revalidate();
+        repaint();
+    }
+    public void reEvaluateBox(Player player) {
+        playerDescription.setText("Display is being updated, \n please wait\n");
+        //playerDescription.setText("");
+        System.out.println("Updating display, please wait.");
+        playerDescription.setText(player.toString());
         System.out.println("Your display should now be updated.");
         
     }
     public void showInventory(Player player){
-        this.remove(infoPane);
+        //this.remove(infoPane);
         this.setTitle("Inventory");
         JPanel inventoryPane = new JPanel();
         inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.PAGE_AXIS));
@@ -101,13 +104,26 @@ public class PlayerDisplayer extends JFrame {
             inventoryPane.add(item[i]);
         }
         Container contentPane = getContentPane();
-        
-        contentPane.add(inventoryPane,BorderLayout.NORTH);
+        this.pack();
+        contentPane.add(inventoryPane,BorderLayout.CENTER);
+        this.pack();
         revalidate();
         repaint();
         
     }
-
-
-
+    public void printOut(String prtstr){
+        JPanel outputPanel = new JPanel();
+        outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
+        JTextArea gameLog = new JTextArea();
+        gameLog.setEditable(false);
+        gameLog.setText("\n"+prtstr+"\n");
+        outputPanel.add(gameLog);
+        System.out.println("Printing to screen");
+        Container contentPane = getContentPane();
+        this.pack();
+        contentPane.add(outputPanel, BorderLayout.SOUTH);
+        this.pack();
+        revalidate();
+        repaint();
+    }
 }

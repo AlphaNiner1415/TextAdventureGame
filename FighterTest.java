@@ -9,7 +9,7 @@ public class FighterTest{
         merchant1.add(dagger);
         merchant1.sellsToPlayer(dagger, myPlayer);
         PlayerDisplayer displayer1 = new PlayerDisplayer(myPlayer);
-        Clothes comfyClothes = new Clothes("Comfortable Clothes", 0, 0, 0,"");
+        Clothes comfyClothes = new Clothes("Comfortable Clothes", 0, 0, 0,"", "Body");
         Potion healthPotion = new Potion("HP Potion", "hitpoints", 30, 3);
         myPlayer.add(comfyClothes);
         //System.out.println(myPlayer);
@@ -18,21 +18,12 @@ public class FighterTest{
         Scanner kb = new Scanner(System.in);
 
         displayer1.setVisible(true);
-        System.out.println("Press enter to continue");
-        //kb.nextLine();
-        myPlayer.add(rapier);
-        myPlayer.equip(rapier);
+        displayer1.showPlayerInfo(myPlayer);
         
-        //System.out.println(rapier);
-        myPlayer.add(healthPotion);
+        myPlayer.equip(dagger);
+        myPlayer.getInventory();
         
-        healthPotion.use(myPlayer);
-        myPlayer.attack(player2);
-        myPlayer.attack(player2);
-        myPlayer.attack(player2);
-        
-        displayer1.reEvaluateBox(myPlayer);
+        displayer1.printOut("Hello There!");
         displayer1.showInventory(myPlayer);
-        System.out.println(player2.hp);
     }
 }

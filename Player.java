@@ -12,7 +12,7 @@ public class Player {
     public ArrayList<Item> inventory;
     public int bagSize;
     public Item[] equippedStuff;
-    private double originalAccuracy;
+    private final double defaultAccuracy;
     public ArrayList<Potion> potionsInEffect;
     public int money;
     int[][] levelRef = {{1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10},{50,100,150,200,250,300,350,400,450,500}};
@@ -30,6 +30,7 @@ public class Player {
         inventory = new ArrayList<Item>();
         equippedStuff = new Item[5]; //Head, Body, Hand, Feet, Secondary
         bagSize = 20;
+        defaultAccuracy = 0.5;
     }
     public Player(String name,int hp, int attack, int defense, int accuracy){
         this.name = name;
@@ -44,6 +45,8 @@ public class Player {
         potionsInEffect = new ArrayList<Potion>();
         money = 1000;
         bagSize = 20;
+        defaultAccuracy = accuracy;
+        
   
     }
     public void attack(Player F2){
@@ -87,40 +90,53 @@ public class Player {
             System.out.println(this.name + " missed!!");
         }
     }
-    public void equip(Item i){
+    public String equip(Item i){
+        String returnString = "";
         if(inventory.contains(i)){
             if(i instanceof Weapon){
                 Weapon w;
                 w = (Weapon) i;
-                if (w.slot == "primaryHand") {
-                    Item alreadyEquipped = this.equippedStuff[2];
-                    this.equippedStuff[2] = w;
-                    w.increaseAttack(this);
-                    originalAccuracy = this.accuracy;
-                    this.accuracy = w.getAccuracy();
-                    remove(w);
-                    add(alreadyEquipped);
-                    System.out.println("Equipping " + w.getName());
-                }
+                equipWeapon(w);
+                returnString = "Equipping " + w.getName();
+                System.out.println(returnString);
             }else if(i instanceof Wearable){
                 Wearable q = (Wearable) i;
-                Wearable alreadyWorn = (Wearable) this.equippedStuff[q.getSlot()];
-                alreadyWorn.takeOff(this, alreadyWorn.getSlot());
-                q.wear(this, q.getSlot());
-                System.out.println("Equipping " + q.getName());
+                equipWearable(q);
+                
+                returnString = "Equipping " + q.getName();
             } else {
-                System.out.println("That item cannot be worn or held. Why don't you try using it instead?");
+                returnString = "That item cannot be worn or held. Why don't you try using it instead?";
             }
         }else{
-            System.out.println("There is no such thing in your inventory!!!!");
+            returnString = "There is no such thing in your inventory!!!!";
         }
+        return returnString;
+    }
+    public void equipWearable(Wearable q){
+        if(this.equippedStuff[q.getSlot()] != null){
+            Wearable alreadyWorn = (Wearable) this.equippedStuff[q.getSlot()];
+            alreadyWorn.takeOff(this, alreadyWorn.getSlot());
+        }
+        q.wear(this, q.getSlot()); //Wear already increase the Stats.
+    }
+    public void equipWeapon(Weapon w){
+        if(this.equippedStuff[2] != null){
+            Item alreadyEquipped = this.equippedStuff[2];
+            unequip(alreadyEquipped);
+        } 
+        
+        this.equippedStuff[2] = w;
+        w.increaseAttack(this);
+        this.accuracy = w.getAccuracy();
+        remove(w);
+        
     }
     public void unequip(Item i){
         if(i instanceof Weapon){
             Weapon w = (Weapon) i;
             w.decreaseAttack(this);
             this.equippedStuff[2] = null;
-            this.accuracy = originalAccuracy;
+            this.accuracy = defaultAccuracy;
             add(w);
         } else if(i instanceof Wearable){
             Wearable q = (Wearable) i;
@@ -149,7 +165,7 @@ public class Player {
         if(inventory.size() == 0){
             System.out.println("Your inventory is empty!");
         }else {
-            System.out.print("Your inventory contains: ");
+            System.out.println("Your inventory contains: ");
             for (int i = 0; i < inventory.size(); i++) {
                 System.out.println(inventory.get(i).getName());
             }
