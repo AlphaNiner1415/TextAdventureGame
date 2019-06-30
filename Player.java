@@ -102,8 +102,8 @@ public class Player {
             }else if(i instanceof Wearable){
                 Wearable q = (Wearable) i;
                 equipWearable(q);
-                
                 returnString = "Equipping " + q.getName();
+                System.out.println(returnString);
             } else {
                 returnString = "That item cannot be worn or held. Why don't you try using it instead?";
             }

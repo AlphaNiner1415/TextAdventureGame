@@ -22,6 +22,8 @@ public class PlayerDisplayer extends JFrame {
         playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
+        outputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         Container contentPane = getContentPane();
         this.pack();
         contentPane.add(outputPanel, BorderLayout.SOUTH);
@@ -73,7 +75,8 @@ public class PlayerDisplayer extends JFrame {
             equip.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Execute when button is pressed
-                    player.equip(thisItem);
+                    String printString = player.equip(thisItem);
+                    printOut(printString);
                     inventoryPane.remove(item[no]);
                     revalidate();
                     repaint();
@@ -122,7 +125,7 @@ public class PlayerDisplayer extends JFrame {
         
         JTextArea gameLog = new JTextArea();
         gameLog.setEditable(false);
-        gameLog.setText("\n"+prtstr+"\n");
+        gameLog.setText("\n"+prtstr);
         outputPanel.add(gameLog);
         System.out.println("Printing to screen");
         revalidate();

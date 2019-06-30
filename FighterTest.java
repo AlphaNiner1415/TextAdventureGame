@@ -24,7 +24,7 @@ public class FighterTest{
         displayer1.printOut(printStr);
         myPlayer.getInventory();
         
-        displayer1.printOut("Hello There!");
+        
         displayer1.showInventory(myPlayer);
         displayer1.reEvaluateBox(myPlayer);
     }
