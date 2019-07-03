@@ -12,6 +12,7 @@ public class FighterTest{
         Clothes comfyClothes = new Clothes("Comfortable Clothes", 0, 0, 0,"", "Body");
         Potion healthPotion = new Potion("HP Potion", "hitpoints", 30, 3);
         myPlayer.add(comfyClothes);
+        myPlayer.add(healthPotion);
         //System.out.println(myPlayer);
         //System.out.println(comfyClothes);
 

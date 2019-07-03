@@ -8,6 +8,8 @@ public class PlayerDisplayer extends JFrame {
     private static JPanel infoPane;
     private static JFrame playerInfoWindow;
     private static JPanel outputPanel;
+    private static JPanel inventoryPane;
+    private static JScrollPane textScroll;
 
     public PlayerDisplayer(Player player) {
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
@@ -17,23 +19,33 @@ public class PlayerDisplayer extends JFrame {
         //add(playerDescription);
         setTitle("Player description");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        playerInfoWindow = new JFrame("Player Description");
-        playerInfoWindow.setSize(350, 300);
-        playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
         outputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        textScroll = new JScrollPane();
+        outputPanel.add(textScroll);
+        inventoryPane = new JPanel();
+        inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.PAGE_AXIS));
 
-        Container contentPane = getContentPane();
-        this.pack();
-        contentPane.add(outputPanel, BorderLayout.SOUTH);
-        this.pack();
-    }
-    public void showPlayerInfo(Player player){
+
+        playerInfoWindow = new JFrame("Player Description");
+        playerInfoWindow.setSize(350, 300);
+        playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         infoPane = new JPanel();
         infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.PAGE_AXIS));
         infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        //Box.createVerticalStrut(40);
 
+        Container contentPane = getContentPane();
+        this.pack();
+        contentPane.add(inventoryPane, BorderLayout.CENTER);
+        contentPane.add(outputPanel, BorderLayout.SOUTH);
+        this.pack();
+        
+    }
+    public void showPlayerInfo(Player player){
         playerDescription = new JTextArea();
         playerDescription.append(player.toString());
         playerDescription.setEditable(false);
@@ -58,8 +70,7 @@ public class PlayerDisplayer extends JFrame {
     public void showInventory(Player player){
         //this.remove(infoPane);
         this.setTitle("Inventory");
-        JPanel inventoryPane = new JPanel();
-        inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.PAGE_AXIS));
+        
         JPanel[] item = new JPanel[player.bagSize];
         for(int i = 0; i < player.getNonNullInventoryLength(); i++){
             item[i] = new JPanel();
@@ -67,7 +78,9 @@ public class PlayerDisplayer extends JFrame {
 
             JLabel name = new JLabel(player.inventory.get(i).getName());
             Item thisItem = player.inventory.get(i);
+            item[i].add(Box.createRigidArea(new Dimension(10,0)));
             item[i].add(name);
+            item[i].add(Box.createRigidArea(new Dimension(5,0)));
             item[i].add(Box.createHorizontalGlue());
             int no = i;
 
@@ -77,7 +90,9 @@ public class PlayerDisplayer extends JFrame {
                     // Execute when button is pressed
                     String printString = player.equip(thisItem);
                     printOut(printString);
-                    inventoryPane.remove(item[no]);
+                    if(!(thisItem instanceof Potion)){
+                        inventoryPane.remove(item[no]);
+                    }
                     revalidate();
                     repaint();
                 }
@@ -113,17 +128,15 @@ public class PlayerDisplayer extends JFrame {
             item[i].add(disposeButton);
             inventoryPane.add(item[i]);
         }
-        Container contentPane = getContentPane();
-        this.pack();
-        contentPane.add(inventoryPane,BorderLayout.CENTER);
-        this.pack();
         revalidate();
+        this.pack();
         repaint();
         
     }
     public void printOut(String prtstr){
         
         JTextArea gameLog = new JTextArea();
+        textScroll.setViewportView(gameLog);
         gameLog.setEditable(false);
         gameLog.setText("\n"+prtstr);
         outputPanel.add(gameLog);
