@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - JScrollPaneDemo",
+            "request": "launch",
+            "mainClass": "JScrollPaneDemo",
+            "projectName": "TextAdventureGame_197ea46d"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - ArrayListTest",
             "request": "launch",
             "mainClass": "ArrayListTest",

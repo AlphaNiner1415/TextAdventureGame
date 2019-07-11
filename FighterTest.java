@@ -23,6 +23,7 @@ public class FighterTest{
         
         String printStr = myPlayer.equip(dagger);
         displayer1.printOut(printStr);
+        displayer1.printOut("Blablabla");
         myPlayer.getInventory();
         
         

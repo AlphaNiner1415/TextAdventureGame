@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,6 +12,7 @@ public class PlayerDisplayer extends JFrame {
     private static JPanel outputPanel;
     private static JPanel inventoryPane;
     private static JScrollPane textScroll;
+    private static JTextArea gameLog;
 
     public PlayerDisplayer(Player player) {
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
@@ -19,21 +22,22 @@ public class PlayerDisplayer extends JFrame {
         //add(playerDescription);
         setTitle("Player description");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        gameLog = new JTextArea();
+        textScroll = new JScrollPane(gameLog);
+        textScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
         outputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        textScroll = new JScrollPane();
         outputPanel.add(textScroll);
         inventoryPane = new JPanel();
-        inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.PAGE_AXIS));
+        inventoryPane.setLayout(new BoxLayout(inventoryPane, BoxLayout.Y_AXIS));
 
 
         playerInfoWindow = new JFrame("Player Description");
         playerInfoWindow.setSize(350, 300);
         playerInfoWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         infoPane = new JPanel();
-        infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.PAGE_AXIS));
+        infoPane.setLayout(new BoxLayout(infoPane, BoxLayout.Y_AXIS));
         infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         //Box.createVerticalStrut(40);
@@ -90,8 +94,8 @@ public class PlayerDisplayer extends JFrame {
                     // Execute when button is pressed
                     String printString = player.equip(thisItem);
                     printOut(printString);
-                    if(!(thisItem instanceof Potion)){
-                        inventoryPane.remove(item[no]);
+                    if(thisItem instanceof Potion){
+                        printOut("This is a Potion");
                     }
                     revalidate();
                     repaint();
@@ -135,11 +139,11 @@ public class PlayerDisplayer extends JFrame {
     }
     public void printOut(String prtstr){
         
-        JTextArea gameLog = new JTextArea();
-        textScroll.setViewportView(gameLog);
+        //JTextArea gameLog = new JTextArea();
+        gameLog.setPreferredSize(new Dimension(150,40));
         gameLog.setEditable(false);
-        gameLog.setText("\n"+prtstr);
-        outputPanel.add(gameLog);
+        gameLog.append("\n"+prtstr);
+        //textScroll.add(gameLog);
         System.out.println("Printing to screen");
         revalidate();
         repaint();
