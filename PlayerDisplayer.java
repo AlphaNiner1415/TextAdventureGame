@@ -17,7 +17,7 @@ public class PlayerDisplayer extends JFrame {
     public PlayerDisplayer(Player player) {
         //infoPane.add(Box.createRigidArea(new Dimension(20,0)));
         //infoPane.add(Box.createHorizontalGlue());  
-        setSize(350, 300);
+        setSize(350, 500);
         //add(infoPane);
         //add(playerDescription);
         setTitle("Player description");
@@ -140,12 +140,12 @@ public class PlayerDisplayer extends JFrame {
     public void printOut(String prtstr){
         
         //JTextArea gameLog = new JTextArea();
-        gameLog.setPreferredSize(new Dimension(150,40));
+        Dimension d = gameLog.getPreferredSize();
+        d = new Dimension(100,50);
         gameLog.setEditable(false);
         gameLog.append("\n"+prtstr);
         //textScroll.add(gameLog);
         System.out.println("Printing to screen");
-        revalidate();
-        repaint();
+        
     }
 }
