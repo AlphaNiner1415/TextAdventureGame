@@ -24,6 +24,7 @@ public class PlayerDisplayer extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         gameLog = new JTextArea();
         textScroll = new JScrollPane(gameLog);
+        textScroll.setPreferredSize(new Dimension(403,53));
         textScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
@@ -141,7 +142,8 @@ public class PlayerDisplayer extends JFrame {
         
         //JTextArea gameLog = new JTextArea();
         Dimension d = gameLog.getPreferredSize();
-        d = new Dimension(100,50);
+        d = new Dimension(403,53);
+        gameLog.setMaximumSize(d);
         gameLog.setEditable(false);
         gameLog.append("\n"+prtstr);
         //textScroll.add(gameLog);
